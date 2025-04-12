@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Karaoke Song Search</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-900 text-white p-4">
+
+  <div class="max-w-3xl mx-auto">
+
+    <h1 class="text-3xl font-bold text-center mb-4">🎤Ted's Karaoke Song Search</h1>
+
+   
+
+ 
+
+    <input
+
+      type="text"
+
+      id="searchInput"
+
+      placeholder="Search by artist or song title..."
+
+      class="w-full p-3 border rounded-lg mb-4 shadow-sm text-black"
+
+      onkeyup="filterSongs()"
+
+    />
+
+ 
+
+    <!-- Genre Filter Buttons -->
+
+    <div class="flex flex-wrap gap-2 mb-6" id="genreButtons">
+
+      <button onclick="filterByGenre('All')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">All</button>
+
+      <button onclick="filterByGenre('Country')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Country</button>
+
+      <button onclick="filterByGenre('Pop')" class="bg-pink-600 hover:bg-pink-700 text-white px-3 py-1 rounded">Pop</button>
+
+      <button onclick="filterByGenre('Disco')" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded">Disco</button>
+
+    </div>
+
+ 
+
+    <div class="overflow-x-auto">
+
+      <table class="min-w-full bg-gray-800 rounded shadow">
+
+        <thead class="bg-gray-700 text-gray-200">
+
+          <tr>
+
+            <th class="py-3 px-4 text-left">Artist</th>
+
+            <th class="py-3 px-4 text-left">Song Title</th>
+
+            <th class="py-3 px-4 text-left">Genre</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="songTable" class="text-gray-100">
+
+          <tr>
+
+            <td class="py-2 px-4">Rascal Flatts</td>
+
+            <td class="py-2 px-4">Bless the Broken Road</td>
+
+            <td class="py-2 px-4">Country</td>
+
+          </tr>
+
+          <tr>
+
+            <td class="py-2 px-4">Chris Stapleton</td>
+
+            <td class="py-2 px-4">Tennessee Whiskey</td>
+
+            <td class="py-2 px-4">Country</td>
+
+          </tr>
+
+          <tr>
+
+            <td class="py-2 px-4">Garth Brooks</td>
+
+            <td class="py-2 px-4">Friends in Low Places</td>
+
+            <td class="py-2 px-4">Country</td>
+
+          </tr>
+
+          <tr>
+
+            <td class="py-2 px-4">Shania Twain</td>
+
+            <td class="py-2 px-4">Man! I Feel Like a Woman!</td>
+
+            <td class="py-2 px-4">Country</td>
+
+          </tr>
+
+          <tr>
+
+            <td class="py-2 px-4">Backstreet Boys</td>
+
+            <td class="py-2 px-4">I Want It That Way</td>
+
+            <td class="py-2 px-4">Pop</td>
+
+          </tr>
+
+          <tr>
+
+            <td class="py-2 px-4">Gloria Gaynor</td>
+
+            <td class="py-2 px-4">I Will Survive</td>
+
+            <td class="py-2 px-4">Disco</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+ 
+
+  <script>
+
+    function filterSongs() {
+
+      const input = document.getElementById("searchInput").value.toLowerCase();
+
+      const rows = document.getElementById("songTable").getElementsByTagName("tr");
+
+ 
+
+      for (let i = 0; i < rows.length; i++) {
+
+        const cells = rows[i].getElementsByTagName("td");
+
+        let rowText = "";
+
+        for (let j = 0; j < cells.length; j++) {
+
+          rowText += cells[j].textContent.toLowerCase();
+
+        }
+
+        rows[i].style.display = rowText.includes(input) ? "" : "none";
+
+      }
+
+    }
+
+ 
+
+    function filterByGenre(genre) {
+
+      const rows = document.getElementById("songTable").getElementsByTagName("tr");
+
+      const input = document.getElementById("searchInput").value.toLowerCase();
+
+ 
+
+      for (let i = 0; i < rows.length; i++) {
+
+        const cells = rows[i].getElementsByTagName("td");
+
+        const rowGenre = cells[2].textContent;
+
+        let rowText = "";
+
+        for (let j = 0; j < cells.length; j++) {
+
+          rowText += cells[j].textContent.toLowerCase();
+
+        }
+
+ 
+
+        const matchesGenre = genre === 'All' || rowGenre === genre;
+
+        const matchesSearch = rowText.includes(input);
+
+ 
+
+        rows[i].style.display = matchesGenre && matchesSearch ? "" : "none";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
+
+ 
